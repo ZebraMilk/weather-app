@@ -4,7 +4,9 @@ import './style.css';
 const submitBtn = document.querySelector('.submit-form');
 const locationInput = document.querySelector('.location');
 
-submitBtn.addEventListener('click', fetchWeather);
+const weatherDisplay = document.querySelector('.weather-display');
+
+submitBtn.addEventListener('click', handleWeather);
 
 function fetchWeather(e) {
   e.preventDefault();
@@ -14,10 +16,15 @@ function fetchWeather(e) {
     `https://api.weatherapi.com/v1/current.json?key=b91461b4bca744b199d24721232904&q=${location}&aqi=no`,
     { mode: 'cors' }
   );
-  weather
-    .then((response) => response.json())
-    .then((weather) => console.log(weather))
-    .catch((err) => console.log(`Error! ${err}`));
+  return weather;
 }
 
-function handleWeather(response) {}
+function handleWeather(e) {
+  const weatherReport = fetchWeather(e);
+  weatherReport
+    .then((weatherReport) => weatherReport.json())
+    .then((weather) => {
+      console.log(weather);
+    })
+    .catch((err) => console.log(`Error! ${err}`));
+}
