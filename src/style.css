@@ -368,12 +368,16 @@ template {
 /* || layout */
 
 header {
-  align-content: center;
+  text-align: center;
 }
 
 main {
   display: grid;
   grid-template-columns: 1fr 1fr;
+}
+
+main > * {
+  min-height: 500px;
 }
 
 /* || components */
