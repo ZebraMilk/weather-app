@@ -1,6 +1,8 @@
 // entry point for various files
 import './style.css';
-import createElement from '../helper';
+import loadInitialDisplay from './ui/input';
+
+loadInitialDisplay.loadInputPane();
 
 const submitBtn = document.querySelector('.submit-form');
 const locationInput = document.querySelector('.location');
