@@ -48,6 +48,7 @@ function parseWeatherData(data) {
 }
 
 function handleWeather(e) {
+  e.preventDefault();
   const rawWeatherData = fetchWeather(e);
   rawWeatherData
     .then((weatherData) => weatherData.json())

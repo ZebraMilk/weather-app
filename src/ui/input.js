@@ -5,7 +5,7 @@ const inputPane = document.querySelector('.input-pane');
 // create basic form
 
 function loadInputPane() {
-  const newForm = createElement('form', [], { action: '' });
+  const formFields = document.querySelector('.input-form');
 
   const newInput = createElement('input', ['location-input'], {
     type: 'text',
@@ -15,14 +15,13 @@ function loadInputPane() {
   const newSubmitButton = createElement(
     'button',
     ['submit-form'],
-    { type: 'button' },
+    { type: 'submit' },
     'See Weather'
   );
 
-  newForm.appendChild(newInput);
-  newForm.appendChild(newSubmitButton);
-  newForm.appendChild(addOptions());
-  inputPane.appendChild(newForm);
+  formFields.appendChild(newInput);
+  formFields.appendChild(addOptions());
+  formFields.appendChild(newSubmitButton);
 }
 
 // create form options
@@ -83,6 +82,7 @@ function captureInput() {
   console.table(userInput);
   return userInput;
 }
+
 // exports
 
 export default { loadInputPane, captureInput };
