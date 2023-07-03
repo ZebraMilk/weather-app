@@ -31,22 +31,22 @@ function makeDefaultDisplay() {
 
 // clear display
 function clearDisplay() {
-  // only need to load the display once after search is clicked...
-  // right now it adds multiple label columns, because I have told it to
-  while (display.hasChildNodes()) {
-    display.removeChild(lastChild);
-  }
+  // while (display.lastElementChild) {
+  //   display.removeChild(lastChild);
+  // }
+
+  // try newer method
+  display.replaceChildren();
 }
 
 // update display with additional column of weather Data
 function populateDisplay(weatherData) {
   console.log('Data logged, display updated!');
-  console.table(weatherData);
   const location = createElement(
     'p',
     ['location-data', 'result'],
     {},
-    `${weatherData.placeInfo.location} ${weatherData.placeInfo.region}`
+    `${weatherData.placeInfo.location}, ${weatherData.placeInfo.region}`
   );
   const localTime = createElement(
     'p',

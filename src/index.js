@@ -2,9 +2,7 @@
 import './style.css';
 import inputStuff from './ui/input';
 import refreshDisplay from './ui/display';
-
-inputStuff.loadInputPane();
-
+import getWeather from './request/fetch';
 const submitBtn = document.querySelector('.submit-form');
 // const locationInput = document.querySelector('.location-input');
 
@@ -12,48 +10,14 @@ const submitBtn = document.querySelector('.submit-form');
 
 submitBtn.addEventListener('click', handleWeather);
 
-function fetchWeather(e) {
-  e.preventDefault();
-  const location = inputStuff.captureInput().searchParam;
-  const weather = fetch(
-    `https://api.weatherapi.com/v1/current.json?key=b91461b4bca744b199d24721232904&q=${location}&aqi=no`,
-    { mode: 'cors' }
-  );
-  // try to log the response object returned from fetch()
-  // .then((resp) => {
-  //   if (resp.ok === false) {
-  //     console.log(`${resp.status}: ${resp.statusText}`);
-  //     console.log(`URL: ${resp.u
-  //   }
-  // });
-  return weather;
-}
-
-function parseWeatherData(data) {
-  const parsedData = {
-    placeInfo: {
-      location: data.location.name,
-      region: data.location.region,
-      localTime: data.location.localtime,
-    },
-    weatherInfo: {
-      tempF: data.current.temp_f,
-      tempC: data.current.temp_c,
-      condition: data.current.condition,
-    },
-  };
-  parsedData.weatherInfo.tempK =
-    Math.floor((parsedData.weatherInfo.tempC + 273.15) * 10) / 10;
-  return parsedData;
-}
-
 function handleWeather(e) {
   e.preventDefault();
   const rawWeatherData = fetchWeather(e);
-  rawWeatherData
+  rawWeatherData.weather
     .then((weatherData) => weatherData.json())
     .then((weatherJSON) => {
-      const weatherData = parseWeatherData(weatherJSON);
+      const weatherData = getWeather.parseWeatherData(weatherJSON);
+      weatherData.tempChoice = rawWeatherData.tempChoice;
       displayWeather(weatherData);
     })
     .catch((err) => console.log(`Error! ${err}`));
@@ -62,4 +26,17 @@ function handleWeather(e) {
 function displayWeather(data) {
   console.table(data);
   refreshDisplay(data);
+}
+
+function fetchWeather(e) {
+  e.preventDefault();
+  const userInput = inputStuff.captureInput();
+  const location = userInput.searchParam;
+  const tempChoice = userInput.tempMode;
+  const weather = fetch(
+    `https://api.weatherapi.com/v1/current.json?key=b91461b4bca744b199d24721232904&q=${location}&aqi=no`,
+    { mode: 'cors' }
+  );
+
+  return { weather, tempChoice };
 }

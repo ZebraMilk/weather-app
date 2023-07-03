@@ -10,7 +10,43 @@
     <header>Weather or Not...</header>
     <main class="app-content">
       <div class="input-pane">
-        <form action="" class="input-form"></form>
+        <form action="" class="input-form">
+          <input class="location-input" type="text" value="Saint Paul" />
+          <button class="submit-form" type="submit">See Weather</button>
+          <div class="radio-options">
+            <div>
+              <input
+                class="temp-option"
+                type="radio"
+                id="fahrenheit"
+                name="temperature"
+                value="F"
+                checked="true"
+              />
+              <label class="label-option" for="fahrenheit">Fahrenheit</label>
+            </div>
+            <div>
+              <input
+                class="temp-option"
+                type="radio"
+                id="celsius"
+                name="temperature"
+                value="C"
+              />
+              <label class="label-option" for="celsius">Celsius</label>
+            </div>
+            <div>
+              <input
+                class="temp-option"
+                type="radio"
+                id="kelvin"
+                name="temperature"
+                value="K"
+              />
+              <label class="label-option" for="kelvin">Kelvin</label>
+            </div>
+          </div>
+        </form>
       </div>
       <div class="display-pane"></div>
     </main>
