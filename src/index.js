@@ -1,20 +1,20 @@
 // entry point for various files
 import './style.css';
 import inputStuff from './ui/input';
-import displayStuff from './ui/display';
+import refreshDisplay from './ui/display';
 
 inputStuff.loadInputPane();
 
 const submitBtn = document.querySelector('.submit-form');
-const locationInput = document.querySelector('.location-input');
+// const locationInput = document.querySelector('.location-input');
 
-const weatherDisplay = document.querySelector('.weather-display');
+// const weatherDisplay = document.querySelector('.weather-display');
 
 submitBtn.addEventListener('click', handleWeather);
 
 function fetchWeather(e) {
   e.preventDefault();
-  const location = locationInput.value;
+  const location = inputStuff.captureInput().searchParam;
   const weather = fetch(
     `https://api.weatherapi.com/v1/current.json?key=b91461b4bca744b199d24721232904&q=${location}&aqi=no`,
     { mode: 'cors' }
@@ -23,7 +23,7 @@ function fetchWeather(e) {
   // .then((resp) => {
   //   if (resp.ok === false) {
   //     console.log(`${resp.status}: ${resp.statusText}`);
-  //     console.log(`URL: ${resp.url}`);
+  //     console.log(`URL: ${resp.u
   //   }
   // });
   return weather;
@@ -42,6 +42,8 @@ function parseWeatherData(data) {
       condition: data.current.condition,
     },
   };
+  parsedData.weatherInfo.tempK =
+    Math.floor((parsedData.weatherInfo.tempC + 273.15) * 10) / 10;
   return parsedData;
 }
 
@@ -58,7 +60,5 @@ function handleWeather(e) {
 
 function displayWeather(data) {
   console.table(data);
-  inputStuff.captureInput();
-  displayStuff.makeDefaultDisplay();
-  displayStuff.populateDisplay(data);
+  refreshDisplay(data);
 }

@@ -30,11 +30,47 @@ function makeDefaultDisplay() {
 }
 
 // clear display
+function clearDisplay() {
+  // only need to load the display once after search is clicked...
+  // right now it adds multiple label columns, because I have told it to
+  while (display.hasChildNodes()) {
+    display.removeChild(lastChild);
+  }
+}
 
 // update display with additional column of weather Data
 function populateDisplay(weatherData) {
   console.log('Data logged, display updated!');
   console.table(weatherData);
+  const location = createElement(
+    'p',
+    ['location-data', 'result'],
+    {},
+    `${weatherData.placeInfo.location} ${weatherData.placeInfo.region}`
+  );
+  const localTime = createElement(
+    'p',
+    ['time-data', 'result'],
+    {},
+    `${weatherData.placeInfo.localTime}`
+  );
+  const temperature = createElement(
+    'p',
+    ['temp-data', 'result'],
+    {},
+    `${weatherData.weatherInfo.tempF}`
+  );
+  const conditions = createElement(
+    'p',
+    ['condition-data', 'result'],
+    {},
+    `${weatherData.weatherInfo.condition.text}`
+  );
+  display.append(location, localTime, temperature, conditions);
 }
 
-export default { makeDefaultDisplay, populateDisplay };
+export default function refreshDisplay(weatherData) {
+  clearDisplay();
+  makeDefaultDisplay();
+  populateDisplay(weatherData);
+}
