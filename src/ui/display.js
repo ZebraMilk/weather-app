@@ -1,5 +1,4 @@
 import createElement from '../utils/helper';
-import loadInitialForm from './input';
 
 const display = document.querySelector('.display-pane');
 
@@ -10,9 +9,32 @@ const display = document.querySelector('.display-pane');
 // default display appearance creator
 function makeDefaultDisplay() {
   // name of location + region
+  const locationLabel = createElement(
+    'p',
+    ['weather-location-label'],
+    {},
+    'Location and Region:'
+  );
   // local time of request
+  const timeLabel = createElement('p', ['local-time-label'], {}, 'Local Time:');
   // temperature
+  const tempLabel = createElement('p', ['temp-label'], {}, 'Temperature:');
   // condition - text and image icon
+  const conditionLabel = createElement(
+    'p',
+    ['condition-label'],
+    {},
+    'Conditions:'
+  );
+  display.append(locationLabel, timeLabel, tempLabel, conditionLabel);
 }
 
 // clear display
+
+// update display with additional column of weather Data
+function populateDisplay(weatherData) {
+  console.log('Data logged, display updated!');
+  console.table(weatherData);
+}
+
+export default { makeDefaultDisplay, populateDisplay };

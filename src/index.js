@@ -1,11 +1,12 @@
 // entry point for various files
 import './style.css';
-import loadInitialDisplay from './ui/input';
+import inputStuff from './ui/input';
+import displayStuff from './ui/display';
 
-loadInitialDisplay.loadInputPane();
+inputStuff.loadInputPane();
 
 const submitBtn = document.querySelector('.submit-form');
-const locationInput = document.querySelector('.location');
+const locationInput = document.querySelector('.location-input');
 
 const weatherDisplay = document.querySelector('.weather-display');
 
@@ -57,4 +58,7 @@ function handleWeather(e) {
 
 function displayWeather(data) {
   console.table(data);
+  inputStuff.captureInput();
+  displayStuff.makeDefaultDisplay();
+  displayStuff.populateDisplay(data);
 }

@@ -7,7 +7,7 @@ const inputPane = document.querySelector('.input-pane');
 function loadInputPane() {
   const newForm = createElement('form', [], { action: '' });
 
-  const newInput = createElement('input', ['location'], {
+  const newInput = createElement('input', ['location-input'], {
     type: 'text',
     value: 'Saint Paul',
   });
@@ -28,11 +28,12 @@ function loadInputPane() {
 // create form options
 function addOptions() {
   const formOptions = createElement('div', ['radio-options'], {});
-  const fInput = createElement('input', ['input-option'], {
+  const fInput = createElement('input', ['temp-option'], {
     type: 'radio',
     id: 'fahrenheit',
     name: 'temperature',
-    value: 'fahrenheit',
+    value: 'F',
+    checked: true,
   });
   const fLabel = createElement(
     'label',
@@ -42,11 +43,11 @@ function addOptions() {
     },
     'Fahrenheit'
   );
-  const cInput = createElement('input', ['input-option'], {
+  const cInput = createElement('input', ['temp-option'], {
     type: 'radio',
     id: 'celsius',
     name: 'temperature',
-    value: 'celsius',
+    value: 'C',
   });
   const cLabel = createElement(
     'label',
@@ -54,11 +55,11 @@ function addOptions() {
     { for: 'celsius' },
     'Celsius'
   );
-  const kInput = createElement('input', ['input-option'], {
+  const kInput = createElement('input', ['temp-option'], {
     type: 'radio',
     id: 'kelvin',
     name: 'temperature',
-    value: 'kelvin',
+    value: 'K',
   });
   const kLabel = createElement(
     'label',
@@ -73,7 +74,15 @@ function addOptions() {
 // check for celsius/farenheit/Kelvin (do that math!!)
 
 // capture the input on submission
-
+function captureInput() {
+  const userInput = {
+    searchParam: document.querySelector('.location-input').value,
+    tempMode: document.querySelector('input[name="temperature"]:checked').value,
+  };
+  console.log('Input Captured!');
+  console.table(userInput);
+  return userInput;
+}
 // exports
 
-export default { loadInputPane };
+export default { loadInputPane, captureInput };
